@@ -31,13 +31,13 @@ public class LogTraceAspect {
      * 定义切点
      */
     @Pointcut(
-//            "(@annotation(org.springframework.web.bind.annotation.RequestMapping) ||" +
-//            "@annotation(org.springframework.web.bind.annotation.GetMapping) ||" +
-//            "@annotation(org.springframework.web.bind.annotation.PostMapping) ||" +
-//            "@annotation(org.springframework.web.bind.annotation.PutMapping) ||" +
-//            "@annotation(org.springframework.web.bind.annotation.DeleteMapping) ||" +
-//            "@annotation(org.springframework.web.bind.annotation.PatchMapping)) &&" +
-            "execution(* com.carbon.controller..*.*(..))")
+            "(@annotation(org.springframework.web.bind.annotation.RequestMapping) ||" +
+            "@annotation(org.springframework.web.bind.annotation.GetMapping) ||" +
+            "@annotation(org.springframework.web.bind.annotation.PostMapping) ||" +
+            "@annotation(org.springframework.web.bind.annotation.PutMapping) ||" +
+            "@annotation(org.springframework.web.bind.annotation.DeleteMapping) ||" +
+            "@annotation(org.springframework.web.bind.annotation.PatchMapping)) &&" +
+            "execution(* com.carbon..*(..))")
     public void logTraceAspect(){}
 
     /**
