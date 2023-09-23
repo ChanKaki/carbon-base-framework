@@ -33,6 +33,11 @@ public class BaseResponseVo<T> {
         return BaseResponseVo.build(false, BusinessCodeEnum.ERROR.getCode(), message, null);
     }
 
+    public static <T> BaseResponseVo<T> error(BusinessCodeEnum codeEnum, String message) {
+        return BaseResponseVo.build(false, codeEnum.getCode(), message, null);
+    }
+
+
     public static <T> BaseResponseVo<T> success(T data) {
         return BaseResponseVo.build(true, BusinessCodeEnum.SUCCESS, data);
     }

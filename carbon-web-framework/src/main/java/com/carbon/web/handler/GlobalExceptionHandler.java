@@ -37,6 +37,15 @@ public class GlobalExceptionHandler {
     }
 
     /**
+     * 参数异常
+     */
+    @ExceptionHandler(value = IllegalArgumentException.class)
+    public BaseResponseVo<?> handleIllegalArgumentException(IllegalArgumentException e) {
+        log.error("参数异常:{}", e.getMessage());
+        return BaseResponseVo.error(BusinessCodeEnum.BAD_REQUEST, e.getMessage());
+    }
+
+    /**
      * 自定义 业务异常
      */
     @ExceptionHandler(value = Exception.class)
