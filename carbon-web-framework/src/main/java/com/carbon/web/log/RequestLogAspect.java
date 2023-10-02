@@ -11,9 +11,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
 
 /**
- * @author zhanyihuang
+ * @author kaki
  * @date 2022/12/3
  */
 @Aspect
@@ -32,8 +33,6 @@ public class RequestLogAspect {
         HttpServletRequest request = requestAttributes.getRequest();
         //打印请求内容
         log.debug("[{}]{}，请求数据:[{}]",
-                request.getMethod(), request.getRequestURI(),
-                JSON.toJSONString(joinPoint.getArgs()));
+                request.getMethod(), request.getRequestURI(), Optional.ofNullable(joinPoint.getArgs()).map(JSON::toJSONString).orElse(null));
     }
-
 }
