@@ -21,7 +21,7 @@ import java.util.Optional;
 @Component
 @Slf4j
 @Order(2)
-public class RequestLogAspect {
+public class RequestLogInterceptor {
 
     @Pointcut("execution(* com.carbon.controller..*.*(..))")
     public void requestLogAspect() {
@@ -29,10 +29,15 @@ public class RequestLogAspect {
 
     @Before(value = "requestLogAspect()")
     public void methodBefore(JoinPoint joinPoint) {
-        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = requestAttributes.getRequest();
-        //打印请求内容
-        log.debug("[{}]{}，请求数据:[{}]",
-                request.getMethod(), request.getRequestURI(), Optional.ofNullable(joinPoint.getArgs()).map(JSON::toJSONString).orElse(null));
+        try {
+            ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+            HttpServletRequest request = requestAttributes.getRequest();
+            //打印请求内容,有些入参不支持json格式
+            log.debug("[{}]{}，请求数据:[{}]",
+                    request.getMethod(), request.getRequestURI(), Optional.ofNullable(joinPoint.getArgs()).map(args -> args.toString()).orElse(null));
+        } catch (Exception e) {
+            log.warn("controller 层打印日志出错");
+            e.printStackTrace();
+        }
     }
 }
